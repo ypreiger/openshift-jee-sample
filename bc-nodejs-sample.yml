@@ -1,0 +1,36 @@
+kind: BuildConfig
+apiVersion: v1
+metadata:
+  name: 'nodejs-sample'
+  annotations:
+    description: Defines how to build the application
+    template.alpha.openshift.io/wait-for-ready: 'true'
+spec:
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/openshift/nodejs-ex.git'
+      ref: ''
+    contextDir: '${CONTEXT_DIR}'
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: 'openshift'
+        name: 'nodejs:6'
+  output:
+    to:
+      kind: ImageStreamTag
+      namespace: 'inventory-dev'
+      name: 'nodejs-sample:latest'
+  triggers:
+    - type: ImageChange
+    - type: ConfigChange
+    - type: GitHub
+      github:
+        secret: ''
+      generic:
+        secret: ''
+  postCommit:
+    script: npm test
