@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: null
+  labels:
+    name: cotd
+  name: cotd1
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: cotd1:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/wkulhanek/cotd.git
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: php:7.0
+        namespace: openshift
+    type: Source
+  triggers:
+  - github:
+      secret: ufZKyjx3d0U4F3zb0kl2
+    type: GitHub
+  - generic:
+      secret: lYgXuKcz3220UQ49T9Tg
+    type: Generic
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange
+status:
+  lastVersion: 0
