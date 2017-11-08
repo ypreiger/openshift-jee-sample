@@ -1,0 +1,64 @@
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    generation: 4
+    labels:
+      name: cotd
+    name: cotd1
+  spec:
+    replicas: 0
+    selector:
+      deploymentconfig: cotd1
+      name: cotd
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/container.cotd1.image.entrypoint: '["container-entrypoint","/bin/sh","-c","$STI_SCRIPTS_PATH/usage"]'
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deploymentconfig: cotd1
+          name: cotd
+      spec:
+        containers:
+        - env:
+          - name: SELECTOR
+            value: cats
+          image: 172.30.118.67:5000/xyz-deployment/cotd1@sha256:22912b68e77392750ec3b1914c713e4c1acc2cf9730dbbcfc12559fa103300d6
+          imagePullPolicy: Always
+          name: cotd1
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - cotd1
+        from:
+          kind: ImageStreamTag
+          name: cotd1:latest
+          namespace: xyz-deployment
+      type: ImageChange
+  status:
+    observedGeneration: 4
