@@ -58,6 +58,7 @@ spec:
       from:
         kind: ImageStreamTag
         name: cotd1:latest
+        namespace: xyz-deployment        
     type: ImageChange
 status:
     observedGeneration: 4
