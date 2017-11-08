@@ -27,8 +27,3 @@ spec:
   triggers:
     - type: ImageChange
     - type: ConfigChange
-    - type: GitHub
-      github:
-        secret: 'uqweyriuywieury'
-      generic:
-        secret: 'uqweyriuywieury'
