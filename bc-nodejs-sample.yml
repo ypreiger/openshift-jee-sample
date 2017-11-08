@@ -28,9 +28,3 @@ spec:
     - type: ImageChange
     - type: ConfigChange
     - type: GitHub
-      github:
-        secret: ''
-      generic:
-        secret: ''
-  postCommit:
-    script: npm test
