@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: BuildConfig
 metadata:
-  name: jws-app
+  name: jws-app-new
   labels:
     app: generic-java-jenkins-pipeline
-    application: jws-app
+    application: jws-app-new
     template: generic-java-jenkins-pipeline
 spec:
   triggers: []
@@ -22,7 +22,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: 'jws-app:latest'
+      name: 'jws-app-new:latest'
   resources: {}
   postCommit: {}
   nodeSelector: null
