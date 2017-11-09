@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: petstore1
+  labels:
+    app: petstore1
+  annotations:
+    openshift.io/generated-by: OpenShiftNewBuild
+spec:
+  triggers:
+    - type: GitHub
+      github:
+        secret: wIkRE1V4RkJRwnNtCUpt
+    - type: Generic
+      generic:
+        secret: 6f8RRs1DoK-m59dChPAN
+  runPolicy: Serial
+  source:
+    type: Binary
+    binary: {}
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'jboss-webserver30-tomcat8-openshift:latest'
+      env:
+        - name: WAR_FILE_URL
+          value: >- 
+            https://raw.githubusercontent.com/VeerMuchandi/ps/master/deployments/ROOT.war
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'petstore:latest'
+  resources: {}
+  postCommit: {}
+  nodeSelector: null
+status:
+  lastVersion: 0
