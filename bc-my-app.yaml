@@ -11,7 +11,7 @@ spec:
   runPolicy: Serial
   source:
     type: Binary
-    binary: kqjwehfoiuqhewoiurewqoiroiuewqroiuewqriuewqrfoi
+    binary: {}
   strategy:
     type: Source
     sourceStrategy:
